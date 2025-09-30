@@ -20,13 +20,16 @@ app.use(cookieParser())
 const port = process.env.PORT || 5000;
 
 const db = new pg.Client({
-  user: process.env.PGUSER,
-  host: process.env.PGHOST,
-  database: process.env.PGDATABASE,
-  password: process.env.PGPASSWORD,
-  port: process.env.PGPORT,
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false, // important for Render SSL
+  },
 });
-db.connect();
+
+db.connect()
+  .then(() => console.log("Connected to Postgres 🎉"))
+  .catch((err) => console.error("Connection error", err.stack));
+
 const saltRounds = 10;
 
 let selectedPostTitle;
