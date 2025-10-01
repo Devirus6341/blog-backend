@@ -151,9 +151,24 @@ const result = await db.query('SELECT * FROM blogs WHERE id = $1',[id])
 res.json(result.rows[0])
 })
 
-app.patch('/edit', async(req, res) => {
-  const {id, title, content} = req.body;
-     await db.query('UPDATE blogs SET title = $1, content = $2 WHERE id = $3' , [title, content, id])
+app.patch('/edit', async (req, res) => {
+  try {
+    const { id, title, content } = req.body;
+
+    const result = await db.query(
+      'UPDATE blogs SET title = $1, content = $2 WHERE id = $3 RETURNING *',
+      [title, content, id]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ message: 'Post not found' });
+    }
+
+    res.json({ message: 'Post updated successfully', post: result.rows[0] });
+  } catch (error) {
+    console.error('Error updating post:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
 });
 
 app.delete('/delete/:id', async (req, res) => {
