@@ -27,7 +27,7 @@ const db = new pg.Client({
 });
 
 db.connect()
-  .then(() => console.log("Connected to Postgres 🎉"))
+  .then(() => console.log("Connected to Postgres "))
   .catch((err) => console.error("Connection error", err.stack));
 
 const saltRounds = 10;
