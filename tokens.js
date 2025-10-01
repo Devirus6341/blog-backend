@@ -13,12 +13,12 @@ const createRefreshToken = (userID) => {
 }
 
 const sendRefreshToken = (res, refreshToken) => {
-    res.cookie('refreshtoken', refreshToken, {
-        httpOnly: true,
-        path: '/refresh_token',
-         secure: true,  // true if HTTPS
-        sameSite: 'strict',
-    })
+   res.cookie("refreshtoken", token, {
+  httpOnly: true,
+  path: "/refresh_token",
+  sameSite: "None", 
+  secure: true,      
+});
 }
 
 export {createAccessToken, createRefreshToken, sendRefreshToken}
