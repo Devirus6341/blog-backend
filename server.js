@@ -124,7 +124,7 @@ const getCurrentUser = await db.query('SELECT email FROM users WHERE id = $1 ', 
 app.get('/user/posts', async(req, res) => {
   const userId = isAuth(req) 
       if (!userId) return res.json({message: 'Please Log In'})
- const result = await db.query('SELECT * FROM blogs WHERE user_id = $1',[userId])
+ const result = await db.query('SELECT * FROM blogs WHERE user_id = $1 ORDER BY id DESC',[userId])
    const currentUserPosts = result.rows;
    res.json({currentUserPosts});
 });
