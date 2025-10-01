@@ -13,7 +13,7 @@ const createRefreshToken = (userID) => {
 }
 
 const sendRefreshToken = (res, refreshToken) => {
-   res.cookie("refreshtoken", token, {
+   res.cookie("refreshtoken", refreshToken, {
   httpOnly: true,
   path: "/refresh_token",
   sameSite: "None", 
