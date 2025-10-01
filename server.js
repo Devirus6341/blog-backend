@@ -11,7 +11,7 @@ import cookieParser from 'cookie-parser';
 const app = express();
 dotenv.config();
 app.use(cors({
-  origin: 'https://blog-frontend-gxz6.onrender.com',
+  origin: 'https://devx-blog.netlify.app',
   credentials: true
 }));
 app.use(express.json());
